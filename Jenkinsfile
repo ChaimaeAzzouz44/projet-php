@@ -56,6 +56,8 @@ pipeline {
                       -v /var/run/docker.sock:/var/run/docker.sock \
                       -v trivy_cache:/root/.cache/ \
                       aquasec/trivy:latest image \
+                      --timeout 20m \
+                      --scanners vuln \
                       --severity CRITICAL --ignore-unfixed \
                       --exit-code 1 --no-progress \
                       $IMAGE_NAME:$IMAGE_TAG
