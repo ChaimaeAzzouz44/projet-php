@@ -79,6 +79,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Déploiement : Docker Compose') {
+            when { branch 'prod' }
+            steps {
+                sh '''
+                    docker compose -p projet-php-prod up -d
+                    docker compose -p projet-php-prod ps
+                '''
+            }
+        }
     }
 
     post {

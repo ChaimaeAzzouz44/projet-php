@@ -1,0 +1,7 @@
+services:
+  app:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    container_name: projet-php-prod
+    restart: unless-stopped
+    ports:
+      - "8082:80"
