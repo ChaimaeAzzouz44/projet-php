@@ -15,6 +15,6 @@ $nom = $_GET['nom'] ?? 'DevOps';
 </head>
 <body>
     <h1><?= saluer($nom) ?></h1>
-    <p>Cette application est déployée automatiquement par un pipeline CI/CD.</p>
+    <p>Cette application est déployée automatiquement avec docker compose par un pipeline CI/CD.</p>
 </body>
 </html>
