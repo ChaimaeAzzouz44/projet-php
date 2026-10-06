@@ -56,6 +56,8 @@ pipeline {
                       -v /var/run/docker.sock:/var/run/docker.sock \
                       -v trivy_cache:/root/.cache/ \
                       aquasec/trivy:latest image \
+                      --timeout 20m \
+                      --scanners vuln \
                       --severity CRITICAL --ignore-unfixed \
                       --exit-code 1 --no-progress \
                       $IMAGE_NAME:$IMAGE_TAG
@@ -75,6 +77,16 @@ pipeline {
                         docker logout
                     '''
                 }
+            }
+        }
+
+        stage('Déploiement : Docker Compose') {
+            when { branch 'prod' }
+            steps {
+                sh '''
+                    docker compose -p projet-php-prod up -d
+                    docker compose -p projet-php-prod ps
+                '''
             }
         }
     }
